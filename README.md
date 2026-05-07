@@ -8,18 +8,18 @@ no se nada sobre programacion orientada a objetos en python, asi que voy a ir bu
 
 ## Sesión 1 — 7/5/26
 
-**2:13 am** (inicio):  
+#### **2:13 am** (inicio):  
 * Búsqueda simple en documentación sobre clases, herencia, objetos, etc. 
 * Mi objetivo ahora es crear algunos objetos y la matriz del tablero.
 
-**4:32 am** (fin):
+#### **4:32 am** (fin):
 
 * tuve que leer documentación de POO en python, era logico
 * crree la clase del tablero con el método para mostrar en terminal y que se inicialice con el método __init__.
 * cree la base de las clases para las distintas piezas, pero dudo que este del todo bien. Tengo que verlo dsp.
 * tengo que averiguar como crear una interfaz grafica más agradable que la terminal. Poder verlo bien seriviria y motivaria porque me dejaria ver mas cadaa avance.
 
-### lógica a resolver (Arquitectura de Movimiento)
+##### lógica a resolver (Arquitectura de Movimiento)
 Tengo que definir la cantidad de métodos "anidados" o secuenciales que necesito para procesar una jugada. El flujo lógico debería ser:
 
 1. validar la forma de moverse de la pieza
