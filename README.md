@@ -4,11 +4,13 @@ ajedrez codeado por mi sin usar ia, no por ser negacionista o estar en contra, s
 No se nada sobre programacion orientada a objetos en pyhton, asi que voy a ir buscandole la vuelta a medida que avanzo. 
 Seguro este mega hardcodeado, poco optimizado, poco legible, pero espero que algun dia funcion
 
-** sesion 1: 7/5/2026 2:13am **
-Simple busqueda en documentacion sobre clases, herencia, objetos, etc. 
-Mi objetivo ahora es crear algunos objects y la grid de fondo. 
+** sesion 1: 7/5/2026 **
+2:13am (inicio):
 
-4:32 am:
+Simple busqueda en documentacion sobre clases, herencia, objetos, etc. 
+Mi objetivo ahora es crear algunos objectos y la matriz del tablero. 
+
+4:32 am (fin):
  
 - tuve que leer documentacion de POO como esperaba
 - Cree la clase del tablero con el metodo para mostar en terminal y que se inicialice con un __init__
