@@ -2,6 +2,7 @@
 ajedrez codeado por mi sin usar ia, no por ser negacionista o estar en contra, sino puramente para mejorar mi logica y medir mis capacidades
 --
 No se nada sobre programacion orientada a objetos en pyhton, asi que voy a ir buscandole la vuelta a medida que avanzo. 
+Seguro este mega hardcodeado, poco optimizado, poco legible, pero espero que algun dia funcion
 
 ** sesion 1: 7/5/2026 2:13am **
 Simple busqueda en documentacion sobre clases, herencia, objetos, etc. 
