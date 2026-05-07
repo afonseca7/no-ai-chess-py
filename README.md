@@ -34,3 +34,6 @@ Tengo que definir la cantidad de métodos "anidados" o secuenciales que necesito
 
 ### ** 13:25 ** (inicio):
 Mi idea es en intento de una corta sesion poder investigar e implementar una interfaz de tablero, para salir de la interfaz de la terminal
+
+### ** 16:40 ** (fin):
+Consegui implementar la cuadricula y peones. Proximo a hacer es hacer visuales las demas piezas

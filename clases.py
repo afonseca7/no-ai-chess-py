@@ -3,14 +3,14 @@
 class Tablero:
           def __init__(self):
                     self.matriz = [ 
-                              [".", ".", ".", ".", ".", ".", ".", "."],
-                              [".", ".", ".", ".", ".", ".", ".", "."],
-                              [".", ".", ".", ".", ".", ".", ".", "."],
-                              [".", ".", ".", ".", ".", ".", ".", "."],
-                              [".", ".", ".", ".", ".", ".", ".", "."],
-                              [".", ".", ".", ".", ".", ".", ".", "."],
-                              [".", ".", ".", ".", ".", ".", ".", "."],
-                              [".", ".", ".", ".", ".", ".", ".", "."]
+                              [None,None,None,None,None,None,None,None],
+                              [Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro")],
+                              [None,None,None,None,None,None,None,None],
+                              [None,None,None,None,None,None,None,None],
+                              [None,None,None,None,None,None,None,None],
+                              [None,None,None,None,None,None,None,None],
+                              [Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco")],
+                              [None,None,None,None,None,None,None,None]
                               ]
 
           def mostrar (self):
@@ -21,13 +21,9 @@ class Tablero:
                               print()
 
 
-
-
 class Pieza:
-          def __init__(color,x,y):
+          def __init__ (self,color):
                     self.color = color
-                    self.x = x
-                    self.y = y
 
           def formaDeMoverse():
 
@@ -36,6 +32,17 @@ class Pieza:
                     pass
           def puedeMoverse():
                     pass
+
+class Peon(Pieza):
+          
+
+          def formaDeMoverse():         
+                    pass
+
+          pass
+
+
+
 
 
 
@@ -86,11 +93,4 @@ class Reina (Pieza):
           pass
 
 
-class Peon (Pieza):
-
-          def formaDeMoverse():
-                    
-                    pass
-
-          pass
 
