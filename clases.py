@@ -1,16 +1,16 @@
 
 # creo la clase del tablero, va a estructurar los datos (matriz 2D)
-class Tablero:
+class Board:
           def __init__(self):
                     self.matriz = [ 
-                              [None,None,None,None,None,None,None,None],
-                              [Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro"),Peon("negro")],
-                              [None,None,None,None,None,None,None,None],
-                              [None,None,None,None,None,None,None,None],
+                              [Rook("negro","rook"),Knight("negro","knight"),Bishop("negro","bishop"),Queen("negro","queen"),King("negro","king"),Bishop("negro","bishop"),Knight("negro","knight"),Rook("negro","rook")],
+                              [Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro")],
                               [None,None,None,None,None,None,None,None],
                               [None,None,None,None,None,None,None,None],
-                              [Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco"),Peon("blanco")],
-                              [None,None,None,None,None,None,None,None]
+                              [None,None,None,None,None,None,None,None],
+                              [None,None,None,None,None,None,None,None],
+                              [Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco")],
+                              [Rook("blanco","rook"),Knight("blanco","knight"),Bishop("blanco","bishop"),Queen("blanco","queen"),King("blanco","king"),Bishop("blanco","bishop"),Knight("blanco","knight"),Rook("blanco","rook")]
                               ]
 
           def mostrar (self):
@@ -21,21 +21,34 @@ class Tablero:
                               print()
 
 
-class Pieza:
-          def __init__ (self,color):
+""" 1. validar la forma de moverse de la pieza
+2. validar que las coordenadas destino quedendentro de los límites del tablero
+3. vlidar colisiones,  comprobar que en la ruta o destino no haya una pieza aliada.
+4. validar estado, comprobar que el movimiento no deje en jaque al rey aliado
+5. recien ahi, ejecutar el movimiento en la matriz """
+
+class Piece:
+          def __init__ (self,color,tipo):
                     self.color = color
+                    self.tipo = tipo
 
-          def formaDeMoverse():
+          def CoordsQuedanDentroLim():
+                    pass
 
+          def RutaHabilitada():
+                    pass
+
+          def DejaEnJaque():
                     pass
           def Mover():
-                    pass
-          def puedeMoverse():
-                    pass
+                   if CoordsQuedanDentroLim() & RutaHabilitada() & DejaEnJaque():
+                    pass 
 
-class Peon(Pieza):
+
+class Pawn(Piece):
+          def __init__(self, color):
+                    super().__init__(color, "pawn")
           
-
           def formaDeMoverse():         
                     pass
 
@@ -46,7 +59,9 @@ class Peon(Pieza):
 
 
 
-class Torre (Pieza):
+class Rook (Piece):
+          def __init__(self, color, tipo="rook"):
+                    super().__init__(color, tipo)
 
           def formaDeMoverse():
                     
@@ -55,7 +70,9 @@ class Torre (Pieza):
           pass
 
 
-class Caballo (Pieza):
+class Knight (Piece):
+          def __init__(self, color, tipo="knight"):
+                    super().__init__(color, tipo)
 
           def formaDeMoverse():
                     
@@ -66,7 +83,9 @@ class Caballo (Pieza):
 
 
 
-class Alfil (Pieza):
+class Bishop (Piece):
+          def __init__(self, color, tipo="bishop"):
+                    super().__init__(color, tipo)
 
           def formaDeMoverse():
                     
@@ -75,7 +94,9 @@ class Alfil (Pieza):
           pass
 
 
-class Rey (Pieza):
+class King (Piece):
+          def __init__(self, color, tipo="king"):
+                    super().__init__(color, tipo)
 
           def formaDeMoverse():
                     
@@ -84,7 +105,9 @@ class Rey (Pieza):
           pass
 
 
-class Reina (Pieza):
+class Queen (Piece):
+          def __init__(self, color, tipo="queen"):
+                    super().__init__(color, tipo)
 
           def formaDeMoverse():
                     

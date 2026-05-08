@@ -1,16 +1,22 @@
 ﻿import pygame
-from clases import Tablero,Peon,Pieza
+from clases import Board, Pawn, Piece
 
 
 pygame.init()
-tablero=Tablero()
+board=Board()
 
 
 ancho = 800
 alto = 800
-pantalla = pygame.display.set_mode((ancho,alto))
+size = 100
+screen = pygame.display.set_mode((ancho,alto))
 pygame.display.set_caption('motor grafico')
-
+img_torre_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_rlt60.png")
+img_torre_blanca = pygame.transform.scale(img_torre_blanca, (size, size))
+img_torre_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_rdt60.png")
+img_torre_negra = pygame.transform.scale(img_torre_negra, (size, size))
+img_alfil_blanca = pygame.iamge.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_blt60.png",(size,size))
+im_alfil_blanca = pygame.transform.scale
 corriendo = True
 while corriendo:
 
@@ -23,11 +29,9 @@ while corriendo:
 
           # dibujar
 
-          pantalla.fill((0,0,0)) # el fondo va a ser negro
+          screen.fill((0,0,0)) # el fondo va a ser negro
 
-          #rectangulos
           # rectangulos
-          size = 100
           for col in range(8):
                     for fil in range(8): 
                               par_o_impar = col + fil
@@ -36,29 +40,29 @@ while corriendo:
                               
                               #dibujo cuadricula
                               if (par_o_impar) % 2 == 0 :
-                                        pygame.draw.rect(pantalla, (255, 255, 255), (coord_x, coord_y, size, size))
+                                        pygame.draw.rect(screen, (253, 241, 219), (coord_x, coord_y, size, size))
                               else:
-                                        pygame.draw.rect(pantalla, (0, 0, 0), (coord_x, coord_y, size, size))
+                                        pygame.draw.rect(screen, (181, 149, 110), (coord_x, coord_y, size, size))
                               
                               #guarod la pieza actual en una variable
-                              pieza_actual = tablero.matriz[fil][col]
+                              pieza_actual = board.matriz[fil][col]
 
                               #valido que haya una pieza
                               if pieza_actual is not None:
-                                        
                                         #definicion del texto de color a rgb
-                                        if pieza_actual.color == "blanco":
-                                                  color_visual = (200, 200, 200)
-                                        else: 
-                                                  color_visual = (50, 50, 50)
+                                        
                                         
                                         #render de la pieza ya con el color que le toca
-                                        pygame.draw.circle(pantalla, color_visual, (coord_x + (size / 2), coord_y + (size / 2)), 30)
+                                       match pieza_actual.tipo:
+                                                  case "rook":
+                                                            if pieza_actual.color == "blanco":
+                                                                      screen.blit(img_torre_blanca, (coord_x, coord_y)) #proyecto la imagen
+                                                            else:
+                                                                      screen.blit(img_torre_negra, (coord_x,coord_y))
+                                                  case "bishop":
+                                                            if pieza_actual.color == "blanco":
+                                                                      screen.blit(img_alfil_blanca
 
-                              
-          
-          pygame.display.flip() # actualizo la pantalla
-
-
+          pygame.display.flip()
 #apago
 pygame.quit()

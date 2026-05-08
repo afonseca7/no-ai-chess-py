@@ -1,7 +1,7 @@
-from clases import Tablero
+from clases import Board
 
 def iniciar_juego():
-    partida = Tablero()
+    partida = Board()
     partida.mostrar()
 
 if __name__ == '__main__':

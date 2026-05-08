@@ -37,3 +37,11 @@ Mi idea es en intento de una corta sesion poder investigar e implementar una int
 
 ### ** 16:40 ** (fin):
 Consegui implementar la cuadricula y peones. Proximo a hacer es hacer visuales las demas piezas
+
+## sesion 3 - 7/5/26
+
+### ** 19:45 ** (inicio):
+La idea es meter el resto de piezas con sus respectivas imagenes
+
+## ** 21:20 ** (fin): 
+No avance tanto, fue entre clases
