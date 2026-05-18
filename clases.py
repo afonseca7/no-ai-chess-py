@@ -31,6 +31,9 @@ class Piece:
           def __init__ (self,color,tipo):
                     self.color = color
                     self.tipo = tipo
+          
+          def casillaHabilitada():
+                    pass
 
           def CoordsQuedanDentroLim():
                     pass
@@ -49,10 +52,44 @@ class Pawn(Piece):
           def __init__(self, color):
                     super().__init__(color, "pawn")
           
-          def formaDeMoverse():         
-                    pass
+          def conversionMatriz():
+                    coord_x, coord_y = pygame.mouse.get_pos()
+                    columna_click = coord_x //size
+                    fila_click = coord_y //size
 
-          pass
+
+          def formaDeMoverse(self,fila_origen,col_origen,fila_destino,col_destino,matriz):         
+                    
+                    if self.color == "blanco":
+                              direccion = -1
+                              fila_inicio = 6
+                    else:
+                              direccion = 1
+                              fila_inicio = 1
+
+                    #avance simple:
+                    if col_origen == col_destino and fila_destino == fila_origen + direccion:
+                              if matriz[fila_destino][col_destino] is None:
+                                        return True
+                    
+                    #avance doble (solo en posicion de inicio):
+                    elif col_origen == col_destino and fila_destino == fila_origen + (direccion *2):
+                              if fila_origen == fila_inicio:
+                                        #la casilla del medio y la del final deben ser None
+                                        casilla_intermedia = fila_origen + direccion
+                                        if matriz[casilla_intermedia][col_destino] is None and matriz[fila_destino][col_destino] is None: 
+                                                  return True
+
+                    #avance captura: 
+                    elif abs(col_origen - col_destino) == 1 and fila_destino == fila_origen + direccion:
+                              pieza_destino = matriz[fila_destino][col_destino]
+                              #tiene que existir una pieza en destino y debe ser enemiga 
+                              if pieza_destino is not None and pieza_destino.color != self.color:
+                                        return True
+                    
+                    return False
+                              
+
 
 
 

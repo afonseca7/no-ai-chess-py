@@ -11,12 +11,48 @@ alto = 800
 size = 100
 screen = pygame.display.set_mode((ancho,alto))
 pygame.display.set_caption('motor grafico')
+
+
+# imagenes de las piezas con sus respectivos escalados
+
 img_torre_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_rlt60.png")
 img_torre_blanca = pygame.transform.scale(img_torre_blanca, (size, size))
+
 img_torre_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_rdt60.png")
 img_torre_negra = pygame.transform.scale(img_torre_negra, (size, size))
-img_alfil_blanca = pygame.iamge.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_blt60.png",(size,size))
-im_alfil_blanca = pygame.transform.scale
+
+img_alfil_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_blt60.png")
+img_alfil_blanca = pygame.transform.scale(img_alfil_blanca, (size, size))
+
+img_alfil_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_bdt60.png")
+img_alfil_negra = pygame.transform.scale(img_alfil_negra, (size,size))
+
+img_caballo_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_nlt60.png")
+img_caballo_blanca = pygame.transform.scale(img_caballo_blanca, (size,size))
+
+img_caballo_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_ndt60.png")
+img_caballo_negra = pygame.transform.scale(img_caballo_blanca, (size,size))
+
+img_reina_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_plt60.png")
+img_reina_blanca = pygame.transform.scale(img_reina_blanca,(size,size))
+
+img_reina_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_qdt60.png")
+img_reina_negra = pygame.transform.scale(img_reina_negra,(size,size))
+
+img_rey_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_klt60.png")
+img_rey_blanca = pygame.transform.scale(img_rey_blanca,(size,size))
+
+img_rey_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_kdt60.png")
+img_rey_negra = pygame.transform.scale(img_rey_negra,(size,size))
+
+img_peon_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_plt60.png")
+img_peon_blanca = pygame.transform.scale(img_peon_blanca,(size,size))
+
+img_peon_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_pdt60.png")
+img_peon_negra = pygame.transform.scale(img_peon_negra,(size,size))
+
+
+seleccionado = None
 corriendo = True
 while corriendo:
 
@@ -24,6 +60,38 @@ while corriendo:
           for evento in pygame.event.get():
                     if evento.type == pygame.QUIT: #cerrar ventana
                               corriendo = False
+                    if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
+                              pos_x, pos_y = pygame.mouse.get_pos()
+
+                              col_click = pos_x // size
+                              fil_click = pos_y // size
+                              
+                              if seleccionado == None:
+
+                                        #seleccion: 
+
+                                        if board.matriz[fil_click][col_click] is not None:
+                                                  seleccionado = (fil_click, col_click)
+                                                  print(f"Pieza seleccionada en :{seleccionado}") 
+                              
+                              else: 
+                                        #movimiento 
+                                        #extraigo los indices
+                                        fil_origen, col_origen = seleccionado
+                                        pieza = board.matriz[fil_origen][col_origen]
+
+                                        #llamo al metodo de validacion
+                                        movimiento_legal = pieza.formaDeMoverse(fil_origen,col_origen,fil_click,col_click,board.matriz)
+                                        
+                                        if movimiento_legal:
+                                                  board.matriz[fil_click][col_click] = pieza
+                                                  board.matriz[fil_origen][col_origen]= None
+                                                  print("Movimiento ejecutado con éxito.")
+                                        else:
+                                                  print("Movimiento ilegal según las reglas de la pieza")
+                                        
+                                        seleccionado = None
+
           
           # actualizar logica
 
@@ -59,9 +127,39 @@ while corriendo:
                                                                       screen.blit(img_torre_blanca, (coord_x, coord_y)) #proyecto la imagen
                                                             else:
                                                                       screen.blit(img_torre_negra, (coord_x,coord_y))
+                                                  
+                                                  case "knight":
+                                                            if pieza_actual.color == 'blanco':
+                                                                      screen.blit(img_caballo_blanca,(coord_x,coord_y))
+                                                            else: 
+                                                                      screen.blit(img_caballo_negra,(coord_x,coord_y))
+                                                  
                                                   case "bishop":
                                                             if pieza_actual.color == "blanco":
-                                                                      screen.blit(img_alfil_blanca
+                                                                      screen.blit(img_alfil_blanca, (coord_x, coord_y))
+                                                            else: 
+                                                                      screen.blit(img_alfil_negra,(coord_x,coord_y))
+                                                  
+                                                  case "queen":
+                                                            if pieza_actual.color == 'blanco':
+                                                                      screen.blit(img_reina_blanca,(coord_x,coord_y))
+                                                            else: 
+                                                                      screen.blit(img_reina_negra,(coord_x,coord_y))
+
+                                                  case "king":
+                                                            if pieza_actual.color == 'blanco':
+                                                                      screen.blit(img_rey_blanca,(coord_x,coord_y))
+                                                            else: 
+                                                                      screen.blit(img_rey_negra,(coord_x,coord_y))
+                                                  
+                                                  case "pawn":
+                                                            if pieza_actual.color == 'blanco':
+                                                                      screen.blit(img_peon_blanca,(coord_x,coord_y))
+                                                            else: 
+                                                                      screen.blit(img_peon_negra,(coord_x,coord_y))
+                                                  
+
+
 
           pygame.display.flip()
 #apago

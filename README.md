@@ -45,3 +45,14 @@ La idea es meter el resto de piezas con sus respectivas imagenes
 
 ## ** 21:20 ** (fin): 
 No avance tanto, fue entre clases
+
+---
+## sesion 4 - 17/5/26
+
+### ** 12:16 ** (inicio):
+Mismo objetivo que sesion 3.
+
+### ** 23:16 ** (fin): 
+Tuve un monton de pausa, luego de las 12:16 no hice mas de 12:40, retome a eso de las 22:40.
+Puse todas las imagenes e implemente el movimiento de los peones. y lo lleve a la interfaz, con prints de debug para ir viendo que todo funcione OK.
+No hay sistemas de turnos (al menos por ahora). 
