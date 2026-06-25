@@ -56,3 +56,12 @@ Mismo objetivo que sesion 3.
 Tuve un monton de pausa, luego de las 12:16 no hice mas de 12:40, retome a eso de las 22:40.
 Puse todas las imagenes e implemente el movimiento de los peones. y lo lleve a la interfaz, con prints de debug para ir viendo que todo funcione OK.
 No hay sistemas de turnos (al menos por ahora). 
+
+---
+## sesion 5 - 24/6/26
+### ** 21:05 ** (inicio):
+objetivo de esta sesion es crear el sistema de turnos
+
+### ** 21:32 ** (fin):
+Creado con exito, si se intenta mover una pieza que no sea el turno, dice que el movimiento es ilegal porque no es su turno
+

@@ -53,6 +53,8 @@ img_peon_negra = pygame.transform.scale(img_peon_negra,(size,size))
 
 
 seleccionado = None
+turno_actual = "blancas"
+
 corriendo = True
 while corriendo:
 
@@ -60,21 +62,25 @@ while corriendo:
           for evento in pygame.event.get():
                     if evento.type == pygame.QUIT: #cerrar ventana
                               corriendo = False
+
                     if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
                               pos_x, pos_y = pygame.mouse.get_pos()
-
                               col_click = pos_x // size
                               fil_click = pos_y // size
                               
                               if seleccionado == None:
 
+                                        if board.matriz[fil_click][col_click] is not None: 
+                                                  pieza_a_seleccionar = board.matriz[fil_click][col_click]
                                         #seleccion: 
 
-                                        if board.matriz[fil_click][col_click] is not None:
-                                                  seleccionado = (fil_click, col_click)
-                                                  print(f"Pieza seleccionada en :{seleccionado}") 
+                                                  if pieza_a_seleccionar.color == turno_actual:
+                                                            seleccionado = (fil_click, col_click)
+                                                            print(f"Pieza seleccionada en :{seleccionado}") 
                               
-                              else: 
+                                                  else:
+                                                            print("ilegal: no es tu turno")
+                              else:  
                                         #movimiento 
                                         #extraigo los indices
                                         fil_origen, col_origen = seleccionado
@@ -86,7 +92,11 @@ while corriendo:
                                         if movimiento_legal:
                                                   board.matriz[fil_click][col_click] = pieza
                                                   board.matriz[fil_origen][col_origen]= None
-                                                  print("Movimiento ejecutado con éxito.")
+                                                  if turno_actual == "blancas":
+                                                            turno_actual = "negras"
+                                                  else: 
+                                                            turno_actual = "blancas"
+                                                  print(f"Movimiento ejecutado con éxito. juega: {turno_actual}")
                                         else:
                                                   print("Movimiento ilegal según las reglas de la pieza")
                                         
