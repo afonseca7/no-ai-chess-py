@@ -25,12 +25,19 @@ class Board:
 2. validar que las coordenadas destino quedendentro de los límites del tablero
 3. vlidar colisiones,  comprobar que en la ruta o destino no haya una pieza aliada.
 4. validar estado, comprobar que el movimiento no deje en jaque al rey aliado
-5. recien ahi, ejecutar el movimiento en la matriz """
+5. recien ahi, ejecutar el movimiento en la matriz  """
 
 class Piece:
           def __init__ (self,color,tipo):
                     self.color = color
                     self.tipo = tipo
+          
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+                    pieza_destino = matriz[fil_destino][col_destino]
+                    if pieza_destino is not None and pieza_destino.color == self.color:
+                              return False
+                    else: 
+                              return True
           
           def casillaHabilitada():
                     pass
@@ -46,6 +53,7 @@ class Piece:
           def Mover():
                    if CoordsQuedanDentroLim() & RutaHabilitada() & DejaEnJaque():
                     pass 
+          
 
 
 class Pawn(Piece):
@@ -100,11 +108,49 @@ class Rook (Piece):
           def __init__(self, color, tipo="rook"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse():
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
                     
-                    pass
+                    if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
+                              return False
+                    
+                    pieza_destino = matriz[fil_destino][col_destino]
+                    if fil_destino > fil_origen: 
+                              paso = 1
+                    else: 
+                              paso = -1                    
+                    
+                    if col_origen != col_destino and fil_origen != fil_destino:
+                              return False
+                    
 
-          pass
+                    elif col_origen == col_destino: 
+                              #se mueve verticalmente
+
+                              for casilla in range( fil_origen + paso, fil_destino, paso):
+                                        casilla_intermedia = casilla
+                                        if matriz[casilla_intermedia][col_destino] is not None: 
+                                                  return False
+                              pieza_destino = matriz[fil_destino][col_destino]
+                              if pieza_destino is None: 
+                                        return True
+                              elif pieza_destino.color != self.color:
+                                        return True
+                              else: 
+                                        return False
+                              
+
+                    elif fil_origen == fil_destino:
+                              # se mueve horizontalmente
+                              for casilla in range(col_origen + paso, col_destino, paso):
+                                        casilla_intermedia = casilla
+                                        if matriz[fil_destino][casilla_intermedia] is not None: 
+                                                  return False
+                              if pieza_destino is None: 
+                                        return True
+                              elif pieza_destino.color != self.color:
+                                        return True
+                              else: 
+                                        return False                              
 
 
 class Knight (Piece):

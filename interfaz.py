@@ -31,7 +31,7 @@ img_caballo_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyec
 img_caballo_blanca = pygame.transform.scale(img_caballo_blanca, (size,size))
 
 img_caballo_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_ndt60.png")
-img_caballo_negra = pygame.transform.scale(img_caballo_blanca, (size,size))
+img_caballo_negra = pygame.transform.scale(img_caballo_negra, (size,size))
 
 img_reina_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_plt60.png")
 img_reina_blanca = pygame.transform.scale(img_reina_blanca,(size,size))
@@ -53,7 +53,7 @@ img_peon_negra = pygame.transform.scale(img_peon_negra,(size,size))
 
 
 seleccionado = None
-turno_actual = "blancas"
+turno_actual = "blanco"
 
 corriendo = True
 while corriendo:
@@ -85,17 +85,17 @@ while corriendo:
                                         #extraigo los indices
                                         fil_origen, col_origen = seleccionado
                                         pieza = board.matriz[fil_origen][col_origen]
-
+                                                  
                                         #llamo al metodo de validacion
                                         movimiento_legal = pieza.formaDeMoverse(fil_origen,col_origen,fil_click,col_click,board.matriz)
                                         
                                         if movimiento_legal:
                                                   board.matriz[fil_click][col_click] = pieza
                                                   board.matriz[fil_origen][col_origen]= None
-                                                  if turno_actual == "blancas":
-                                                            turno_actual = "negras"
+                                                  if turno_actual == "blanco":
+                                                            turno_actual = "negro"
                                                   else: 
-                                                            turno_actual = "blancas"
+                                                            turno_actual = "blanco"
                                                   print(f"Movimiento ejecutado con éxito. juega: {turno_actual}")
                                         else:
                                                   print("Movimiento ilegal según las reglas de la pieza")

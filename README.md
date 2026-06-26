@@ -65,3 +65,22 @@ objetivo de esta sesion es crear el sistema de turnos
 ### ** 21:32 ** (fin):
 Creado con exito, si se intenta mover una pieza que no sea el turno, dice que el movimiento es ilegal porque no es su turno
 
+---
+## sesion 6 - 25/6/26
+### ** 13:50 ** (inicio):
+El objetivo de esta sesion es implementar el movimiento de la torre
+### ** 14:01 ** (fin):
+por percances personales debo finalizar la sesion antes de tiempo
+
+## sesion 7 - 25/6/26
+### ** 18:02 ** (inicio):
+voy a continuar con el movimiento de los rooks, me lo imagino asi al aire como: 
+si se mueve verticalmente: 
+          1. un for desde la fila origen hasta la fila destino
+          2. si la casilla no es none, se activa un flag o devuelve false, de esta manera bloquea el movimiento
+si se mueve horizontalmente es lo mismo, pero en vez de fila columnas. 
+De esta manera consigo checkear que este limpio el camino. 
+Lo voy a hacer durante la clase, asi que existe la posibilidad de un avance reducido 
+
+### ** 19:32 ** (fin):
+la logica de las torres ya esta implementada.  
