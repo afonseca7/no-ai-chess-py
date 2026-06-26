@@ -114,10 +114,7 @@ class Rook (Piece):
                               return False
                     
                     pieza_destino = matriz[fil_destino][col_destino]
-                    if fil_destino > fil_origen: 
-                              paso = 1
-                    else: 
-                              paso = -1                    
+                                   
                     
                     if col_origen != col_destino and fil_origen != fil_destino:
                               return False
@@ -125,10 +122,16 @@ class Rook (Piece):
 
                     elif col_origen == col_destino: 
                               #se mueve verticalmente
+                              if fil_destino > fil_origen:
+                                        paso = 1
+                              else: 
+                                        paso = -1     
+                              
 
                               for casilla in range( fil_origen + paso, fil_destino, paso):
                                         casilla_intermedia = casilla
                                         if matriz[casilla_intermedia][col_destino] is not None: 
+                                                  print(f"no se puede mover, existe una pieza en ({casilla_intermedia},{col_destino})")
                                                   return False
                               pieza_destino = matriz[fil_destino][col_destino]
                               if pieza_destino is None: 
@@ -141,9 +144,14 @@ class Rook (Piece):
 
                     elif fil_origen == fil_destino:
                               # se mueve horizontalmente
+                              if col_destino > col_origen: 
+                                        paso = 1 
+                              else: 
+                                        paso = -1
                               for casilla in range(col_origen + paso, col_destino, paso):
                                         casilla_intermedia = casilla
                                         if matriz[fil_destino][casilla_intermedia] is not None: 
+                                                  print(f'no se puede mover, existe una pieza en ({fil_destino},{casilla_intermedia})')
                                                   return False
                               if pieza_destino is None: 
                                         return True
@@ -170,11 +178,36 @@ class Bishop (Piece):
           def __init__(self, color, tipo="bishop"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse():
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+                    if col_origen == col_destino or fil_origen == fil_destino: 
+                              return False
                     
-                    pass
+                    elif (abs(col_origen - col_destino) == abs(fil_origen - fil_destino)):
 
-          pass
+                              if fil_destino > fil_origen:
+                                        #se mueve hacia abajo
+                                        paso_y = 1
+                              else:
+                                        #se mueve hacia arriba
+                                        paso_y = -1
+                              
+                              if col_origen > col_destino: 
+                                        #se mueve hcia la derecha
+                                        paso_x = 1
+                              else:
+                                        #se mueve hacia la izquierda
+                                        paso_x = -1
+                    
+                    while paso_x != col_destino and paso_y != fil_destino:
+                              pieza_intermedia = matriz[paso_x][paso_y]
+                              if pieza_intermedia is not None: 
+                                        print(f'no se puede mover, existe una pieza en ({paso_x},{paso_y})')
+                                        return False
+                              paso_x += 1
+                              paso_y += 1
+                              return True
+                                        
+
 
 
 class King (Piece):

@@ -84,3 +84,15 @@ Lo voy a hacer durante la clase, asi que existe la posibilidad de un avance redu
 
 ### ** 19:32 ** (fin):
 la logica de las torres ya esta implementada.  
+
+## ** sesion 8 - 26/6/26
+### ** 12:27 ** (inicio):
+No tengo tanto tiempo, voy a iniciar con el movimiento de los bishops. Me lo imagino como: 
+          1. debe moverse en valor absoluto la misma distancia en filas que en columnas. 
+          2. Obtengo la direccion en x y la direccion en y
+          3. recorro con un while? sumando la direccion en x y en y segun la direccion hasta llegar al destino. 
+          4. si alguna casilla de entremedio no es None, despierta una alerta. 
+
+### ** 13:42 ** (fin):
+Empece con la logica del bishop, falta terminar.
+Reconoci un bug en una situacion de juego del rook. Corregido. 
