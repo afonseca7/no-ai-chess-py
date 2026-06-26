@@ -85,7 +85,7 @@ Lo voy a hacer durante la clase, asi que existe la posibilidad de un avance redu
 ### ** 19:32 ** (fin):
 la logica de las torres ya esta implementada.  
 
-## ** sesion 8 - 26/6/26
+##  sesion 8 - 26/6/26
 ### ** 12:27 ** (inicio):
 No tengo tanto tiempo, voy a iniciar con el movimiento de los bishops. Me lo imagino como: 
           1. debe moverse en valor absoluto la misma distancia en filas que en columnas. 
@@ -96,3 +96,10 @@ No tengo tanto tiempo, voy a iniciar con el movimiento de los bishops. Me lo ima
 ### ** 13:42 ** (fin):
 Empece con la logica del bishop, falta terminar.
 Reconoci un bug en una situacion de juego del rook. Corregido. 
+
+## sesion 9 - 26/6/26
+### ** 17:51 ** (inicio):
+espero poder finalizar con el movimiento del bishop.
+
+### ** 18:31 ** (fin): 
+bishop finalizado, intento comenzar con queen, que es la union de bishop con rook.
