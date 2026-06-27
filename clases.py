@@ -113,12 +113,8 @@ class Rook (Piece):
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
                     
-                    pieza_destino = matriz[fil_destino][col_destino]
-                                   
-                    
                     if col_origen != col_destino and fil_origen != fil_destino:
                               return False
-                    
 
                     elif col_origen == col_destino: 
                               #se mueve verticalmente
@@ -127,20 +123,12 @@ class Rook (Piece):
                               else: 
                                         paso = -1     
                               
-
                               for casilla in range( fil_origen + paso, fil_destino, paso):
                                         casilla_intermedia = casilla
                                         if matriz[casilla_intermedia][col_destino] is not None: 
                                                   print(f"no se puede mover, existe una pieza en ({casilla_intermedia},{col_destino})")
                                                   return False
-                              pieza_destino = matriz[fil_destino][col_destino]
-                              if pieza_destino is None: 
-                                        return True
-                              elif pieza_destino.color != self.color:
-                                        return True
-                              else: 
-                                        return False
-                              
+                              return True                              
 
                     elif fil_origen == fil_destino:
                               # se mueve horizontalmente
@@ -229,42 +217,70 @@ class Queen (Piece):
           def __init__(self, color, tipo="queen"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse():
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
                     
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
 
+                    #movimiento recto               
 
-                    
+                    if col_origen == col_destino: 
+                              #se mueve verticalmente
+                              if fil_destino > fil_origen:
+                                        paso = 1
+                              else: 
+                                        paso = -1     
+                              
+
+                              for casilla in range( fil_origen + paso, fil_destino, paso):
+                                        casilla_intermedia = casilla
+                                        if matriz[casilla_intermedia][col_destino] is not None: 
+                                                  print(f"no se puede mover, existe una pieza en ({casilla_intermedia},{col_destino})")
+                                                  return False
+                              return True
+
+                              
+                    elif fil_origen == fil_destino:
+                              # se mueve horizontalmente
+                              if col_destino > col_origen: 
+                                        paso = 1 
+                              else: 
+                                        paso = -1
+                              for casilla in range(col_origen + paso, col_destino, paso):
+                                        casilla_intermedia = casilla
+                                        if matriz[fil_destino][casilla_intermedia] is not None: 
+                                                  print(f'no se puede mover, existe una pieza en ({fil_destino},{casilla_intermedia})')
+                                                  return False
+                              return True                      
                     
                     # movimiento diagonal
-                    if (abs(col_origen - col_destino) != abs(fil_origen - fil_destino)):
-                              return False
+                    elif (abs(col_origen - col_destino) == abs(fil_origen - fil_destino)):
 
-                    if fil_destino > fil_origen:
-                              #se mueve hacia abajo
-                              paso_y = 1
-                    else:
-                                        #se mueve hacia arriba
-                                        paso_y = -1
+                              if fil_destino > fil_origen:
+                                        #se mueve hacia abajo
+                                        paso_y = 1
+                              else:
+                                                  #se mueve hacia arriba
+                                                  paso_y = -1
+                                        
+                              if col_destino > col_origen: 
+                                        #se mueve hcia la derecha
+                                        paso_x = 1
+                              else:
+                                        #se mueve hacia la izquierda
+                                        paso_x = -1
                               
-                    if col_destino > col_origen: 
-                              #se mueve hcia la derecha
-                              paso_x = 1
-                    else:
-                              #se mueve hacia la izquierda
-                              paso_x = -1
-                    
-                    fil_actual = fil_origen + paso_y
-                    col_actual = col_origen + paso_x
-                    while col_actual != col_destino and fil_actual != fil_destino:
-                              pieza_intermedia = matriz[fil_actual][col_actual]
-                              if pieza_intermedia is not None:
-                                        print(f'no se puede mover, existe una pieza en ({fil_actual},{col_actual})')
-                                        return False
-                              fil_actual += paso_y
-                              col_actual += paso_x
-                    
+                              fil_actual = fil_origen + paso_y
+                              col_actual = col_origen + paso_x
+                              while col_actual != col_destino and fil_actual != fil_destino:
+                                        pieza_intermedia = matriz[fil_actual][col_actual]
+                                        if pieza_intermedia is not None:
+                                                  print(f'no se puede mover, existe una pieza en ({fil_actual},{col_actual})')
+                                                  return False
+                                        fil_actual += paso_y
+                                        col_actual += paso_x
+                              return True
+                    return False
 
 
 

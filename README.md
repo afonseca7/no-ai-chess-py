@@ -103,3 +103,7 @@ espero poder finalizar con el movimiento del bishop.
 
 ### ** 18:31 ** (fin): 
 bishop finalizado, intento comenzar con queen, que es la union de bishop con rook.
+
+## sesion 10 - 26/6/2026 
+### ** 19:53 ** (inicio):
+espero finalizar con la reina. Si lo hago, comenzare con el rey o con el caballo.
