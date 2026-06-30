@@ -148,13 +148,13 @@ class Knight (Piece):
           def __init__(self, color, tipo="knight"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse():
-                    
-                    pass
-
-
-          pass
-
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+                    if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
+                              return False
+                    if abs(col_origen - col_destino) != ( 2*abs(fil_origen - fil_destino)) or abs(fil_origen - fil_destino) != (2 * abs(col_origen - col_destino)):
+                              return False
+                    else:
+                              return True
 
 
 class Bishop (Piece):

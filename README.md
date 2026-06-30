@@ -107,3 +107,12 @@ bishop finalizado, intento comenzar con queen, que es la union de bishop con roo
 ## sesion 10 - 26/6/2026 
 ### ** 19:53 ** (inicio):
 espero finalizar con la reina. Si lo hago, comenzare con el rey o con el caballo.
+### ** 20:25 ** (fin):
+reina implementada. Falta el resto
+
+## sesion 11 - 30/6/26
+### ** 15:10 ** (inicio):
+el objetivo es hacer que funcione el caballo. Supongo que la logica es que se mueva 2 en un eje y 1 en otro.  
+ 
+### ** 15:25 ** (fin):
+se que tiene fallos, pero es una prmera idea, tengo que acomodar las leyes de morgan para los != y los or. 
