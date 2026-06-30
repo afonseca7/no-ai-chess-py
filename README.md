@@ -116,3 +116,38 @@ el objetivo es hacer que funcione el caballo. Supongo que la logica es que se mu
  
 ### ** 15:25 ** (fin):
 se que tiene fallos, pero es una prmera idea, tengo que acomodar las leyes de morgan para los != y los or. 
+
+## sesion 12 - 30/6/26
+### ** 15:56 ** (inicio):
+quiero acomodar el caballo. 
+tengo que acomodar el de morgan. 
+sea x = col_origen - col_destino 
+sea y = fil_origen - fil_destino
+
+Mov_x = |x|
+mov_y = |y|
+
+entonces, 
+P: Mov_x = 2 Mov_y
+Q: Mov_y = 2 Mov_x 
+
+estado de aceptacion: 
+P v Q <=> verdadero
+
+Pero yo bvusco que sea falso
+-(P v Q) <=> - (verdadero) 
+-- aplico de Morgan
+-P & -Q <=> falso
+
+reemplazando: 
+
+-P: mov_x != 2 mov_y
+-Q: mov_y != 2 mov_x 
+
+llevandolo a codigo, me queda: 
+if abs(col_origen - col_destino) != 2 * abs(fil_origen - fil_destino) and abs(fil_origen - fil_destino) != (2 * abs(col_origen - col_destino)):
+
+pero ahora son validos movimientos 4x2 o 2x4. Toca agregarle una condicion extra, de que si la distancia total es != 3, se devuelva tambien falso
+
+### ** 16:29** (fin):
+completada y segura la logica del caballo. 
