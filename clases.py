@@ -206,12 +206,11 @@ class King (Piece):
           def __init__(self, color, tipo="king"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse():
+          def formaDeMoverse(self,fil_origen, col_origen, fil_destino, col_destino, matriz):
                     
-                    pass
-
-          pass
-
+                    if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
+                              return False
+                    
 
 class Queen (Piece):
           def __init__(self, color, tipo="queen"):

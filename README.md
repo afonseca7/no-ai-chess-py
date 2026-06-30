@@ -151,3 +151,12 @@ pero ahora son validos movimientos 4x2 o 2x4. Toca agregarle una condicion extra
 
 ### ** 16:29** (fin):
 completada y segura la logica del caballo. 
+
+## sesion 13 - 30/6/26
+### ** 16:40 ** (inicio):
+mi objetivo es implementar el movimiento del rey, y si es posible, agregar el estado de jaque.
+
+solo puede moverse 1 casilla de distancia de la original. Entonces, si cualquier eje tiene una diferencia mayor a 1, es falso.
+
+### ** 16:46 ** (fin):
+ya se mueve 1 solo. Debo checkearlo. Debo ver de moverse y quedar en jaque -> automaticamente me cubre tambien el hecho de no poder moverse pegado al otro rey
