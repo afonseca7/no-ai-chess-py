@@ -3,14 +3,14 @@
 class Board:
           def __init__(self):
                     self.matriz = [ 
-                              [Rook("negro","rook"),Knight("negro","knight"),Bishop("negro","bishop"),Queen("negro","queen"),King("negro","king"),Bishop("negro","bishop"),Knight("negro","knight"),Rook("negro","rook")],
+                              [Rook("negro","rook"),Knight("negro","knight"),Bishop("negro","bishop"),Queen("negro","queen"),King("negro","king",'no'),Bishop("negro","bishop"),Knight("negro","knight"),Rook("negro","rook")],
                               [Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro"),Pawn("negro")],
                               [None,None,None,None,None,None,None,None],
                               [None,None,None,None,None,None,None,None],
                               [None,None,None,None,None,None,None,None],
                               [None,None,None,None,None,None,None,None],
                               [Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco")],
-                              [Rook("blanco","rook"),Knight("blanco","knight"),Bishop("blanco","bishop"),Queen("blanco","queen"),King("blanco","king"),Bishop("blanco","bishop"),Knight("blanco","knight"),Rook("blanco","rook")]
+                              [Rook("blanco","rook"),Knight("blanco","knight"),Bishop("blanco","bishop"),Queen("blanco","queen"),King("blanco","king",'no'),Bishop("blanco","bishop"),Knight("blanco","knight"),Rook("blanco","rook")]
                               ]
 
           def mostrar (self):
@@ -39,17 +39,21 @@ class Piece:
                     else: 
                               return True
           
-          def casillaHabilitada():
-                    pass
+          def poneEnJaque(self, fil_destino, col_destino, matriz):
+        
+                    for fil in range(8):
+                              for col in range(8):
+                                        casilla_objetivo = matriz[fil][col]
+                
+                                        # si hay una pieza que es rey y es del otro color
+                                        if casilla_objetivo is not None and casilla_objetivo.tipo == "king" and casilla_objetivo.color != self.color:
+                    
+                                                  # veo si mi pieza puede atacarlo
+                                                  if self.formaDeMoverse(fil_destino, col_destino, fil, col, matriz):
+                                                            casilla_objetivo.enJaque = "si"
+                                                            return True
+                    return False
 
-          def CoordsQuedanDentroLim():
-                    pass
-
-          def RutaHabilitada():
-                    pass
-
-          def DejaEnJaque():
-                    pass
           def Mover():
                    if CoordsQuedanDentroLim() & RutaHabilitada() & DejaEnJaque():
                     pass 
@@ -197,21 +201,36 @@ class Bishop (Piece):
                               fil_actual += paso_y
                               col_actual += paso_x
 
-                              return True
+                    return True
                                         
 
 
 
-class King (Piece):
-          def __init__(self, color, tipo="king"):
+class King(Piece):
+          def __init__(self, color, tipo="king", enJaque='no'):
                     super().__init__(color, tipo)
+                    self.enJaque = enJaque 
+          
 
           def formaDeMoverse(self,fil_origen, col_origen, fil_destino, col_destino, matriz):
                     
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
+                             
+                    if (abs(fil_origen - fil_destino) != 1 and abs(col_origen - col_destino) != 1 ):
+                              return False
                     
 
+                    for fil in range(8):
+                              for col in range(8):
+                                        enemigo=matriz[fil][col]
+
+                                        if enemigo is not None and enemigo.color != self.color:
+                                                  if enemigo.formaDeMoverse(fil,col,fil_destino,col_destino,matriz):
+                                                            print("ilegal, estarias en jaque")
+                                                            return False
+                    return False
+                    
 class Queen (Piece):
           def __init__(self, color, tipo="queen"):
                     super().__init__(color, tipo)

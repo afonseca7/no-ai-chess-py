@@ -33,7 +33,7 @@ img_caballo_blanca = pygame.transform.scale(img_caballo_blanca, (size,size))
 img_caballo_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_ndt60.png")
 img_caballo_negra = pygame.transform.scale(img_caballo_negra, (size,size))
 
-img_reina_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_plt60.png")
+img_reina_blanca = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_qlt60.png")
 img_reina_blanca = pygame.transform.scale(img_reina_blanca,(size,size))
 
 img_reina_negra = pygame.image.load(r"C:\Users\Andyf_e5mb545\Documents\proyectos\chessPy\Chess_qdt60.png")

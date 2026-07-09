@@ -160,3 +160,11 @@ solo puede moverse 1 casilla de distancia de la original. Entonces, si cualquier
 
 ### ** 16:46 ** (fin):
 ya se mueve 1 solo. Debo checkearlo. Debo ver de moverse y quedar en jaque -> automaticamente me cubre tambien el hecho de no poder moverse pegado al otro rey
+
+## sesion 14 - 9/7/26
+### ** 16:02 ** (inicio):
+Quiero agregar un estado de jaque, asi defino si se puede mover o no una pieza o el rey. 
+
+### ** 16:34 ** (fin):
+Agregue el estado del rey en jaque, ya no se puede suicidar. pero falta el hecho de que si una pieza amenaza al rey con otra de por medio, esta del medio no se pueda mover, o que tenga que salvar del jaque al rey.
+Tambien corregi error leve en la logica del alfil
