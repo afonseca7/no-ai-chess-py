@@ -168,3 +168,10 @@ Quiero agregar un estado de jaque, asi defino si se puede mover o no una pieza o
 ### ** 16:34 ** (fin):
 Agregue el estado del rey en jaque, ya no se puede suicidar. pero falta el hecho de que si una pieza amenaza al rey con otra de por medio, esta del medio no se pueda mover, o que tenga que salvar del jaque al rey.
 Tambien corregi error leve en la logica del alfil
+
+## sesion 15 - 9/7/26 - 10/7/26
+### ** 23::42 ** (inicio):
+Quiero agregar mas mecanicas relacionadas al jaque del rey y el comportamiento de las otras piezas del tablero
+
+### ** 00:15 ** (fin):
+Ahora si una pieza salva de estar en jaque al rey no puede ser movida, y es imposible evadir un jaque. Algoritmo de jaque mate y ahogado hecho

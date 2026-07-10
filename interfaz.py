@@ -86,18 +86,43 @@ while corriendo:
                                         fil_origen, col_origen = seleccionado
                                         pieza = board.matriz[fil_origen][col_origen]
                                                   
-                                        #llamo al metodo de validacion
+                                        #validacion
                                         movimiento_legal = pieza.formaDeMoverse(fil_origen,col_origen,fil_click,col_click,board.matriz)
                                         
                                         if movimiento_legal:
+                                                  pieza_destino_original = board.matriz[fil_click][col_click]
+
                                                   board.matriz[fil_click][col_click] = pieza
                                                   board.matriz[fil_origen][col_origen]= None
-                                                  if turno_actual == "blanco":
-                                                            turno_actual = "negro"
+
+                                                  #si el movimento deja a mi rey en amenaza
+                                                  rey_amenazado = board.reyEnJaque(turno_actual)
+
+                                                  board.matriz[fil_origen][col_origen] = pieza
+                                                  board.matriz[fil_click][col_click] = pieza_destino_original
+
+                                                  if rey_amenazado == False:
+
+                                                            board.matriz[fil_click][col_click] = pieza
+                                                            board.matriz[fil_origen][col_origen] = None
+
+                                                            if turno_actual == "blanco":
+                                                                      turno_actual = "negro"
+                                                            else: 
+                                                                      turno_actual = "blanco"
+                                                            
+                                                            print(f"Movimiento ejecutado con éxito. juega: {turno_actual}")
+                                                            
+                                                            if board.hayMovimientosPosibles(turno_actual) == False:
+                                                                      if board.reyEnJaque(turno_actual) == True:
+                                                                                print("jaque mate")
+                                                                      else:
+                                                                                print("ahogado")
+                                                                      corriendo = False
                                                   else: 
-                                                            turno_actual = "blanco"
-                                                  print(f"Movimiento ejecutado con éxito. juega: {turno_actual}")
+                                                            print("no podes mover si el rey queda en jaque.")
                                         else:
+                                        
                                                   print("Movimiento ilegal según las reglas de la pieza")
                                         
                                         seleccionado = None

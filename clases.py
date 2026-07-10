@@ -19,6 +19,54 @@ class Board:
                                         casilla = self.matriz[fila][columna]
                                         print(casilla, end=" ")
                               print()
+          def reyEnJaque (self,color_rey):
+                    fil_rey = -1 
+                    col_rey = -1
+                    rey_encontrado = False
+
+                    fil = 0
+                    while fil < 8 and rey_encontrado == False:
+                              col = 0
+                              while col < 8 and rey_encontrado == False:
+                                        pieza = self.matriz[fil][col]
+
+                                        if pieza is not None and pieza.tipo == "king" and pieza.color == color_rey:
+                                                  fil_rey = fil
+                                                  col_rey = col
+                                                  rey_encontrado = True
+                                        col += 1 
+                              fil += 1
+                    for fil in range(8):
+                              for col in range(8):
+                                        enemigo = self.matriz[fil][col]
+
+                                        if enemigo is not None and enemigo.color != color_rey:
+                                                  if enemigo.formaDeMoverse(fil,col,fil_rey,col_rey,self.matriz):
+                                                            return True
+                    return False
+
+          def hayMovimientosPosibles(self,color_jugador):
+                    for fil_origen in range(8):
+                              for col_origen in range(8):
+                                        pieza = self.matriz[fil_origen][col_origen]
+                                        if pieza is not None and pieza.color == color_jugador:
+                                                  for fil_destino in range(8):
+                                                            for col_destino in range(8):
+                                                                      
+                                                                      if pieza.formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,self.matriz):
+                                                                                pieza_destino_original = self.matriz[fil_destino][col_destino]
+                                                                                self.matriz[fil_destino][col_destino] = pieza
+                                                                                self.matriz[fil_origen][col_origen] = None
+
+                                                                                rey_amenazado = self.reyEnJaque(color_jugador)
+
+                                                                                self.matriz[fil_origen][col_origen] = pieza
+                                                                                self.matriz[fil_destino][col_destino] = pieza_destino_original
+
+                                                                                if rey_amenazado == False:
+                                                                                          return True
+                    return False
+
 
 
 """ 1. validar la forma de moverse de la pieza
@@ -53,21 +101,12 @@ class Piece:
                                                             casilla_objetivo.enJaque = "si"
                                                             return True
                     return False
-
-          def Mover():
-                   if CoordsQuedanDentroLim() & RutaHabilitada() & DejaEnJaque():
-                    pass 
           
 
 
 class Pawn(Piece):
           def __init__(self, color):
                     super().__init__(color, "pawn")
-          
-          def conversionMatriz():
-                    coord_x, coord_y = pygame.mouse.get_pos()
-                    columna_click = coord_x //size
-                    fila_click = coord_y //size
 
 
           def formaDeMoverse(self,fila_origen,col_origen,fila_destino,col_destino,matriz):         
@@ -217,7 +256,7 @@ class King(Piece):
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
                              
-                    if (abs(fil_origen - fil_destino) != 1 and abs(col_origen - col_destino) != 1 ):
+                    if (abs(fil_origen - fil_destino) > 1 or abs(col_origen - col_destino) > 1 ):
                               return False
                     
 
@@ -229,7 +268,7 @@ class King(Piece):
                                                   if enemigo.formaDeMoverse(fil,col,fil_destino,col_destino,matriz):
                                                             print("ilegal, estarias en jaque")
                                                             return False
-                    return False
+                    return True
                     
 class Queen (Piece):
           def __init__(self, color, tipo="queen"):
