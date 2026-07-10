@@ -150,6 +150,7 @@ class Pawn(Piece):
 class Rook (Piece):
           def __init__(self, color, tipo="rook"):
                     super().__init__(color, tipo)
+                    self.se_movio = False
 
           def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
                     
@@ -249,17 +250,42 @@ class King(Piece):
           def __init__(self, color, tipo="king", enJaque='no'):
                     super().__init__(color, tipo)
                     self.enJaque = enJaque 
+                    self.seMovio = False
           
 
           def formaDeMoverse(self,fil_origen, col_origen, fil_destino, col_destino, matriz):
                     
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
-                             
-                    if (abs(fil_origen - fil_destino) > 1 or abs(col_origen - col_destino) > 1 ):
-                              return False
                     
+                    esEnroque = False
 
+                    if fil_origen == fil_destino and abs(col_origen - col_destino) == 2:
+                              if self.seMovio == False: 
+                                        if col_destino > col_origen:
+                                                  paso = 1
+                                        else: 
+                                                  paso = -1
+                                        if col_destino > col_origen:
+                                                  col_torre = 7
+                                        else:
+                                                  col_torre = 0
+                                        torre = matriz[fil_origen][col_torre]
+
+                                        if torre is not None and torre.tipo == "rook" and torre.color == self.color and torre.seMovio == False:
+                                                  camino_libre = True
+                                                  col_actual = col_origen + paso
+                                                  while col_actual != col_torre:
+                                                            if matriz[fil_origen][col_actual] is not None:
+                                                                      camino_libre = False
+                                                            col_actual += paso
+                                                  
+                                                  if camino_libre: 
+                                                            es_enroque = True
+                    
+                    if es_enroque == False and (abs(fil_origen - fil_destino) > 1 or abs(col_origen - col_destino) > 1):
+                              return False
+                              
                     for fil in range(8):
                               for col in range(8):
                                         enemigo=matriz[fil][col]
@@ -268,6 +294,9 @@ class King(Piece):
                                                   if enemigo.formaDeMoverse(fil,col,fil_destino,col_destino,matriz):
                                                             print("ilegal, estarias en jaque")
                                                             return False
+                                                  if es_enroque == True and enemigo.formaDeMoverse(fil,col,fil_origen,col_origen + paso,matriz):
+                                                            print("ilegal,pasas por jaque")
+                                                            return False 
                     return True
                     
 class Queen (Piece):

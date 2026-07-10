@@ -175,3 +175,9 @@ Quiero agregar mas mecanicas relacionadas al jaque del rey y el comportamiento d
 
 ### ** 00:15 ** (fin):
 Ahora si una pieza salva de estar en jaque al rey no puede ser movida, y es imposible evadir un jaque. Algoritmo de jaque mate y ahogado hecho
+
+## sesion 16 - 10/7/26
+### ** 14:05 ** (inicio):
+Falta agregar enroque, coronacion, y en passant. Voy a intentar al menos hacer la coronacion. 
+### ** 15:10 ** (fin):
+coronacion y enroque listos, falta en passant

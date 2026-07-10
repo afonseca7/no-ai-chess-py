@@ -1,5 +1,5 @@
 ﻿import pygame
-from clases import Board, Pawn, Piece
+from clases import Board, Pawn, Piece, Queen
 
 
 pygame.init()
@@ -85,7 +85,15 @@ while corriendo:
                                         #extraigo los indices
                                         fil_origen, col_origen = seleccionado
                                         pieza = board.matriz[fil_origen][col_origen]
-                                                  
+                                        
+                                        pieza_destino_click = board.matriz[fil_click][col_click]
+                                        
+                                        if pieza.tipo == "king" and pieza_destino_click is not None:
+                                                  if pieza_destino_click.tipo == "rook" and pieza_destino_click.color == pieza.color:
+                                                            if col_click > col_origen:
+                                                                      col_click = 6 #destino enroque corto
+                                                            else:
+                                                                      col_click = 2 #destino enroque largo
                                         #validacion
                                         movimiento_legal = pieza.formaDeMoverse(fil_origen,col_origen,fil_click,col_click,board.matriz)
                                         
@@ -102,9 +110,31 @@ while corriendo:
                                                   board.matriz[fil_click][col_click] = pieza_destino_original
 
                                                   if rey_amenazado == False:
-
+                                                            
                                                             board.matriz[fil_click][col_click] = pieza
                                                             board.matriz[fil_origen][col_origen] = None
+
+                                                            if pieza.tipo in ["king","rook"]:
+                                                                      pieza.seMovio = True
+                                                            
+                                                            if pieza.tipo == "king" and abs(col_origen - col_click) == 2:
+                                                                      if col_click == 6:
+                                                                                torre = board.matriz[fil_origen][7]
+                                                                                torre.seMovio = True
+                                                                                board.matriz[fil_origen][5] = torre
+                                                                                board.matriz[fil_origen][7] = None
+                                                                                print("enroque corto")
+                                                                      elif col_click == 2:
+                                                                                torre = board.matriz[fil_origen][0]
+                                                                                torre.seMovio = True
+                                                                                board.matriz[fil_origen][3] = torre
+                                                                                board.matriz[fil_origen][0] = None
+                                                                                print("enroque largp")
+
+                                                            if pieza.tipo == "pawn":
+                                                                      if (pieza.color == "blanco" and fil_click == 0) or (pieza.color == "negro" and fil_click == 1):
+                                                                                board.matriz[fil_click][col_click] = Queen(pieza.color,"queen")
+                                                                                print(f"peon {pieza.color} corono")
 
                                                             if turno_actual == "blanco":
                                                                       turno_actual = "negro"
