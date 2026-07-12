@@ -181,3 +181,9 @@ Ahora si una pieza salva de estar en jaque al rey no puede ser movida, y es impo
 Falta agregar enroque, coronacion, y en passant. Voy a intentar al menos hacer la coronacion. 
 ### ** 15:10 ** (fin):
 coronacion y enroque listos, falta en passant
+
+## sesion 17 - 12/7/26
+### ** 18:17 ** (inicio):
+quiero hacer el en passant, y luego chequear si encuentro algun posible bug en el juego
+### ** 19:53 ** (fin):
+en passant implementado, y bugs corregidos (en su mayoria fueron errores tipograficos)

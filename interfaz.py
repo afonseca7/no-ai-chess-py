@@ -95,10 +95,17 @@ while corriendo:
                                                             else:
                                                                       col_click = 2 #destino enroque largo
                                         #validacion
-                                        movimiento_legal = pieza.formaDeMoverse(fil_origen,col_origen,fil_click,col_click,board.matriz)
+                                        movimiento_legal = pieza.formaDeMoverse(fil_origen,col_origen,fil_click,col_click,board.matriz, board.ultimoMovimiento)
                                         
                                         if movimiento_legal:
                                                   pieza_destino_original = board.matriz[fil_click][col_click]
+
+                                                  esEnPassant = False
+                                                  peonCapturado_enPassant = None
+                                                  if pieza.tipo == "pawn" and abs(col_origen - col_click) == 1 and pieza_destino_original is None:
+                                                            esEnPassant = True
+                                                            peonCapturado_enPassant = board.matriz[fil_origen][col_click]
+                                                            board.matriz[fil_origen][col_click] = None
 
                                                   board.matriz[fil_click][col_click] = pieza
                                                   board.matriz[fil_origen][col_origen]= None
@@ -109,10 +116,16 @@ while corriendo:
                                                   board.matriz[fil_origen][col_origen] = pieza
                                                   board.matriz[fil_click][col_click] = pieza_destino_original
 
+                                                  if esEnPassant: 
+                                                            board.matriz[fil_origen][col_click] = peonCapturado_enPassant
                                                   if rey_amenazado == False:
                                                             
                                                             board.matriz[fil_click][col_click] = pieza
                                                             board.matriz[fil_origen][col_origen] = None
+
+                                                            if esEnPassant:
+                                                                      board.matriz[fil_origen][col_click] = None
+                                                                      print("en passant ejecutado")
 
                                                             if pieza.tipo in ["king","rook"]:
                                                                       pieza.seMovio = True
@@ -132,9 +145,11 @@ while corriendo:
                                                                                 print("enroque largp")
 
                                                             if pieza.tipo == "pawn":
-                                                                      if (pieza.color == "blanco" and fil_click == 0) or (pieza.color == "negro" and fil_click == 1):
+                                                                      if (pieza.color == "blanco" and fil_click == 0) or (pieza.color == "negro" and fil_click == 7):
                                                                                 board.matriz[fil_click][col_click] = Queen(pieza.color,"queen")
                                                                                 print(f"peon {pieza.color} corono")
+                                                                      
+                                                            board.ultimoMovimiento = (pieza,fil_origen,col_origen,fil_click,col_click)
 
                                                             if turno_actual == "blanco":
                                                                       turno_actual = "negro"

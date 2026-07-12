@@ -12,6 +12,7 @@ class Board:
                               [Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco"),Pawn("blanco")],
                               [Rook("blanco","rook"),Knight("blanco","knight"),Bishop("blanco","bishop"),Queen("blanco","queen"),King("blanco","king",'no'),Bishop("blanco","bishop"),Knight("blanco","knight"),Rook("blanco","rook")]
                               ]
+                    self.ultimoMovimiento = None
 
           def mostrar (self):
                     for fila in range (len(self.matriz)):
@@ -41,7 +42,7 @@ class Board:
                                         enemigo = self.matriz[fil][col]
 
                                         if enemigo is not None and enemigo.color != color_rey:
-                                                  if enemigo.formaDeMoverse(fil,col,fil_rey,col_rey,self.matriz):
+                                                  if enemigo.formaDeMoverse(fil,col,fil_rey,col_rey,self.matriz,self.ultimoMovimiento):
                                                             return True
                     return False
 
@@ -53,8 +54,15 @@ class Board:
                                                   for fil_destino in range(8):
                                                             for col_destino in range(8):
                                                                       
-                                                                      if pieza.formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,self.matriz):
+                                                                      if pieza.formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,self.matriz,self.ultimoMovimiento):
                                                                                 pieza_destino_original = self.matriz[fil_destino][col_destino]
+                                                                                esEnPassant = False
+                                                                                peonCapturado_enPassant = None
+                                                                                if pieza.tipo == "pawn" and abs(col_origen - col_destino) == 1 and pieza_destino_original is None:
+                                                                                          esEnPassant = True
+                                                                                          peonCapturado_enPassant = self.matriz[fil_origen][col_destino]
+                                                                                          self.matriz[fil_origen][col_destino] = None
+
                                                                                 self.matriz[fil_destino][col_destino] = pieza
                                                                                 self.matriz[fil_origen][col_origen] = None
 
@@ -62,6 +70,9 @@ class Board:
 
                                                                                 self.matriz[fil_origen][col_origen] = pieza
                                                                                 self.matriz[fil_destino][col_destino] = pieza_destino_original
+                                                                      
+                                                                                if esEnPassant:
+                                                                                          self.matriz[fil_origen][col_destino] = peonCapturado_enPassant
 
                                                                                 if rey_amenazado == False:
                                                                                           return True
@@ -80,7 +91,7 @@ class Piece:
                     self.color = color
                     self.tipo = tipo
           
-          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz,ultimo_mov=None):
                     pieza_destino = matriz[fil_destino][col_destino]
                     if pieza_destino is not None and pieza_destino.color == self.color:
                               return False
@@ -109,38 +120,41 @@ class Pawn(Piece):
                     super().__init__(color, "pawn")
 
 
-          def formaDeMoverse(self,fila_origen,col_origen,fila_destino,col_destino,matriz):         
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz,ultimo_mov=None):         
                     
                     if self.color == "blanco":
                               direccion = -1
-                              fila_inicio = 6
+                              fil_inicio = 6
                     else:
                               direccion = 1
-                              fila_inicio = 1
+                              fil_inicio = 1
 
                     #avance simple:
-                    if col_origen == col_destino and fila_destino == fila_origen + direccion:
-                              if matriz[fila_destino][col_destino] is None:
+                    if col_origen == col_destino and fil_destino == fil_origen + direccion:
+                              if matriz[fil_destino][col_destino] is None:
                                         return True
                     
                     #avance doble (solo en posicion de inicio):
-                    elif col_origen == col_destino and fila_destino == fila_origen + (direccion *2):
-                              if fila_origen == fila_inicio:
+                    elif col_origen == col_destino and fil_destino == fil_origen + (direccion *2):
+                              if fil_origen == fil_inicio:
                                         #la casilla del medio y la del final deben ser None
-                                        casilla_intermedia = fila_origen + direccion
-                                        if matriz[casilla_intermedia][col_destino] is None and matriz[fila_destino][col_destino] is None: 
+                                        casilla_intermedia = fil_origen + direccion
+                                        if matriz[casilla_intermedia][col_destino] is None and matriz[fil_destino][col_destino] is None: 
                                                   return True
 
                     #avance captura: 
-                    elif abs(col_origen - col_destino) == 1 and fila_destino == fila_origen + direccion:
-                              pieza_destino = matriz[fila_destino][col_destino]
-                              #tiene que existir una pieza en destino y debe ser enemiga 
+                    elif abs(col_origen - col_destino) == 1 and fil_destino == fil_origen + direccion:
+                              pieza_destino = matriz[fil_destino][col_destino]
+
                               if pieza_destino is not None and pieza_destino.color != self.color:
                                         return True
-                    
-                    return False
                               
-
+                              if pieza_destino is None and ultimo_mov is not None:
+                                        pieza_mov,fil_o,col_o,fil_d,col_d = ultimo_mov
+                                        if pieza_mov.tipo == "pawn" and pieza_mov.color != self.color:
+                                                  if abs(fil_o - fil_d) == 2 and fil_d == fil_origen and col_d == col_destino:
+                                                            return True
+                    return False
 
 
 
@@ -150,9 +164,9 @@ class Pawn(Piece):
 class Rook (Piece):
           def __init__(self, color, tipo="rook"):
                     super().__init__(color, tipo)
-                    self.se_movio = False
+                    self.seMovio = False
 
-          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz,ultimo_mov=None):
                     
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
@@ -192,7 +206,7 @@ class Knight (Piece):
           def __init__(self, color, tipo="knight"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz,ultimo_mov=None):
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
                     if ((abs(col_origen - col_destino) != 2 * abs(fil_origen - fil_destino)) and abs(fil_origen - fil_destino) != (2 * abs(col_origen - col_destino))) or ((abs(col_origen - col_destino)+ abs(fil_origen - fil_destino) != 3)):
@@ -205,7 +219,7 @@ class Bishop (Piece):
           def __init__(self, color, tipo="bishop"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz,ultimo_mov=None):
 
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
@@ -253,7 +267,7 @@ class King(Piece):
                     self.seMovio = False
           
 
-          def formaDeMoverse(self,fil_origen, col_origen, fil_destino, col_destino, matriz):
+          def formaDeMoverse(self,fil_origen, col_origen, fil_destino, col_destino, matriz, ultimo_mov=None):
                     
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
@@ -303,7 +317,7 @@ class Queen (Piece):
           def __init__(self, color, tipo="queen"):
                     super().__init__(color, tipo)
 
-          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz):
+          def formaDeMoverse(self,fil_origen,col_origen,fil_destino,col_destino,matriz, ultimo_mov=None):
                     
                     if super().formaDeMoverse(fil_origen,col_origen,fil_destino,col_destino,matriz) == False:
                               return False
