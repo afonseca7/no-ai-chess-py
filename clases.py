@@ -273,13 +273,10 @@ class King(Piece):
                               return False
                     
                     esEnroque = False
+                    paso = 1 if col_destino > col_origen else -1
 
                     if fil_origen == fil_destino and abs(col_origen - col_destino) == 2:
                               if self.seMovio == False: 
-                                        if col_destino > col_origen:
-                                                  paso = 1
-                                        else: 
-                                                  paso = -1
                                         if col_destino > col_origen:
                                                   col_torre = 7
                                         else:
@@ -295,9 +292,9 @@ class King(Piece):
                                                             col_actual += paso
                                                   
                                                   if camino_libre: 
-                                                            es_enroque = True
+                                                            esEnroque = True
                     
-                    if es_enroque == False and (abs(fil_origen - fil_destino) > 1 or abs(col_origen - col_destino) > 1):
+                    if esEnroque == False and (abs(fil_origen - fil_destino) > 1 or abs(col_origen - col_destino) > 1):
                               return False
                               
                     for fil in range(8):
@@ -308,7 +305,7 @@ class King(Piece):
                                                   if enemigo.formaDeMoverse(fil,col,fil_destino,col_destino,matriz):
                                                             print("ilegal, estarias en jaque")
                                                             return False
-                                                  if es_enroque == True and enemigo.formaDeMoverse(fil,col,fil_origen,col_origen + paso,matriz):
+                                                  if esEnroque == True and enemigo.formaDeMoverse(fil,col,fil_origen,col_origen + paso,matriz):
                                                             print("ilegal,pasas por jaque")
                                                             return False 
                     return True
